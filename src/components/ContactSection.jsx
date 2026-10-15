@@ -142,27 +142,7 @@ function ContactSection() {
             )}
           </div>
 
-          <div className="contact-details mt-10 rounded-2xl border border-slate-200 bg-slate-50/70 p-5 sm:p-6">
-            <div className="grid gap-5 md:grid-cols-3 md:gap-0">
-              {contactItems.map(({ label, value, href, icon: Icon }) => (
-                <div key={label} className="min-w-0 md:px-5 md:first:pl-0 md:last:pr-0 md:not-first:border-l md:not-first:border-slate-200">
-                  <p className="text-[0.62rem] font-semibold tracking-[0.18em] text-slate-500 uppercase">{label}</p>
-                  <div className="mt-2 flex items-start gap-2.5">
-                    <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-sky-50 text-sky-700">
-                      <Icon size={14} aria-hidden="true" />
-                    </span>
-                    {href ? (
-                      <a href={href} className="text-sm leading-6 text-slate-700 hover:text-slate-900">
-                        {value}
-                      </a>
-                    ) : (
-                      <p className="text-sm leading-6 text-slate-700">{value}</p>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-
+          <div className="contact-details mt-10">
             <div className="mt-6 flex flex-wrap items-center gap-4">
               {githubUrl ? (
                 <a

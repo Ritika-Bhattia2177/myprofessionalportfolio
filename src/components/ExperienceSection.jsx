@@ -12,6 +12,16 @@ const scopeLabels = [
   'Responsive Interfaces',
 ]
 
+const scopeDescriptions = {
+  Leadership: 'Guided day-to-day campus operations.',
+  Teamwork: 'Worked with students and administrative teams.',
+  Communication: 'Connected students with campus management.',
+  'Problem Solving': 'Resolved issues and supported team decisions.',
+  Organization: 'Kept facilities safe, organized, and efficient.',
+  Mentoring: 'Supported and guided fellow team members.',
+  'Candidate Selection': 'Helped interview and select facility team candidates.',
+}
+
 function ExperienceCard({ item, index }) {
   const isTechnical = item.type === 'technical'
   const scopes = isTechnical ? scopeLabels : item.skills
@@ -82,7 +92,7 @@ function ExperienceCard({ item, index }) {
             {scopes.length} focus areas
           </span>
         </div>
-        <div className="space-y-1.5">
+        <div className={`experience-card__scope-list ${isTechnical ? 'experience-card__scope-list--technical' : ''}`}>
           {scopes.map((scope, scopeIndex) => (
             <div key={scope} className="rounded border border-slate-200 bg-white px-2.5 py-2">
               <p className="text-[0.68rem] font-semibold text-slate-700">
@@ -90,7 +100,9 @@ function ExperienceCard({ item, index }) {
                 {scope}
               </p>
               <p className="mt-0.5 text-[0.64rem] leading-4 text-slate-500">
-                {isTechnical ? item.contributions[scopeIndex % item.contributions.length] : item.contributions[scopeIndex % item.contributions.length]}
+                {isTechnical
+                  ? item.contributions[scopeIndex % item.contributions.length]
+                  : scopeDescriptions[scope] || 'Built through practical campus responsibilities.'}
               </p>
             </div>
           ))}

@@ -6,7 +6,7 @@ function ProjectPreview({ title, image }) {
   const hasImage = Boolean(image)
 
   return (
-    <div className="overflow-hidden rounded-[20px] border border-slate-200 bg-slate-50 p-3">
+    <div className="project-preview overflow-hidden rounded-[20px] border border-slate-200 bg-slate-50 p-3">
       <div className="rounded-[16px] border border-slate-200 bg-white p-3">
         <div className="mb-3 flex items-center gap-2">
           <span className="h-2.5 w-2.5 rounded-full bg-slate-300" aria-hidden="true" />
@@ -225,7 +225,7 @@ function ProjectsSection() {
 
           <div
             key={activeProject.id}
-            className="grid gap-6 rounded-[20px] border border-slate-200 bg-slate-50 p-4 transition-all duration-200 animate-[fadeIn_0.2s_ease-out] lg:grid-cols-[1.15fr_0.85fr] lg:p-6"
+            className="project-showcase grid gap-6 rounded-[20px] border border-slate-200 bg-slate-50 p-4 transition-all duration-200 animate-[fadeIn_0.2s_ease-out] lg:grid-cols-[1.15fr_0.85fr] lg:p-6"
           >
             <div className="space-y-5">
               <div className="flex flex-wrap items-center justify-between gap-3">
@@ -320,7 +320,7 @@ function ProjectsSection() {
               </div>
             </div>
 
-            <div className="flex items-stretch">
+            <div className="project-preview-column flex items-start justify-center">
               <ProjectPreview title={activeProject.name} image={activeProject.image} />
             </div>
           </div>

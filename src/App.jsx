@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Download, Menu, Moon, Sun, X } from 'lucide-react'
+import { ChevronUp, Download, Menu, Moon, Sun, X } from 'lucide-react'
 import Hero from './components/Hero'
 import AboutSection from './components/AboutSection'
 import SkillsSection from './components/SkillsSection'
@@ -205,10 +205,11 @@ function App() {
       <button
         type="button"
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed bottom-5 right-5 z-40 inline-flex items-center justify-center rounded-full border border-slate-200 bg-white p-3 text-slate-700 shadow-[0_12px_28px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5 hover:border-slate-300 hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-300 focus:ring-offset-2"
+        className="back-to-top fixed bottom-5 right-5 z-40 inline-flex items-center justify-center gap-1.5 rounded-full border border-slate-200 bg-white px-4 py-2.5 text-slate-700 shadow-[0_12px_28px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5 hover:border-slate-300 hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-300 focus:ring-offset-2"
         aria-label="Back to top"
       >
-        <span className="text-xs font-semibold tracking-[0.18em] uppercase">Top</span>
+        <ChevronUp size={14} aria-hidden="true" />
+        <span className="back-to-top__label">Top</span>
       </button>
       </div>
     </>

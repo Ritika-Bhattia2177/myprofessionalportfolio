@@ -33,6 +33,6 @@ export const experience = [
       'Participated in interviewing and selecting candidates for the Facility Incharge role while mentoring team members.',
       'Strengthened leadership, communication, teamwork, problem-solving, and organizational skills through daily operational responsibilities.',
     ],
-    skills: ['Leadership', 'Teamwork', 'Communication', 'Problem Solving', 'Organization'],
+    skills: ['Leadership', 'Teamwork', 'Communication', 'Problem Solving', 'Organization', 'Mentoring', 'Candidate Selection'],
   },
 ]
