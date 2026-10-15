@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
-import { Download, Menu, X } from 'lucide-react'
+import { Download, Menu, Moon, Sun, X } from 'lucide-react'
 import Hero from './components/Hero'
 import AboutSection from './components/AboutSection'
 import SkillsSection from './components/SkillsSection'
 import ExperienceSection from './components/ExperienceSection'
 import EducationAchievementsCertificationsSection from './components/EducationAchievementsCertificationsSection'
+import ProjectsSection from './components/ProjectsSection'
+import ContactSection from './components/ContactSection'
 import { contactProfile } from './data/contact'
 import { profile } from './data/profile'
 import './App.css'
@@ -24,6 +26,19 @@ const RESUME_URL = contactProfile.resumeUrl
 function App() {
   const [activeSection, setActiveSection] = useState('home')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = window.localStorage.getItem('portfolio-theme')
+    if (savedTheme === 'light' || savedTheme === 'dark') {
+      return savedTheme
+    }
+
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  })
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+    window.localStorage.setItem('portfolio-theme', theme)
+  }, [theme])
 
   useEffect(() => {
     const sections = navItems
@@ -101,10 +116,12 @@ function App() {
       </a>
     ))
 
+  const toggleTheme = () => setTheme((current) => (current === 'light' ? 'dark' : 'light'))
+
   return (
     <>
-      <div className="bg-[#dfeaf4]">
-      <header className="sticky top-0 z-50 border-b border-slate-200/90 bg-white">
+      <div className="site-shell">
+      <header className="site-header sticky top-0 z-50 border-b border-slate-200/90 bg-white">
         <nav aria-label="Main navigation" className="mx-auto flex h-[68px] w-[calc(100%-40px)] max-w-[1136px] items-center justify-between sm:w-[calc(100%-64px)] lg:w-[calc(100%-80px)]">
           <a href="#home" className="shrink-0 text-[1.45rem] font-extrabold tracking-[-0.055em] text-[#3157e8] focus:outline-none focus:ring-2 focus:ring-sky-300 focus:ring-offset-2 focus:ring-offset-white">
             {profile.name}
@@ -112,6 +129,14 @@ function App() {
 
           <div className="hidden items-center gap-6 lg:flex">
             <div className="flex items-center gap-6">{renderNavLinks()}</div>
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="theme-toggle inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-300 focus:ring-offset-2"
+              aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+            >
+              {theme === 'light' ? <Moon size={16} aria-hidden="true" /> : <Sun size={16} aria-hidden="true" />}
+            </button>
             <a
               href={RESUME_URL}
               target="_blank"
@@ -123,15 +148,25 @@ function App() {
             </a>
           </div>
 
-          <button
-            type="button"
-            onClick={() => setIsMenuOpen((current) => !current)}
-            className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white p-2.5 text-slate-700 transition-colors hover:border-slate-300 hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2 lg:hidden"
-            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={isMenuOpen}
-          >
-            {isMenuOpen ? <X size={18} aria-hidden="true" /> : <Menu size={18} aria-hidden="true" />}
-          </button>
+          <div className="flex items-center gap-2 lg:hidden">
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="theme-toggle inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-300 focus:ring-offset-2"
+              aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+            >
+              {theme === 'light' ? <Moon size={17} aria-hidden="true" /> : <Sun size={17} aria-hidden="true" />}
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsMenuOpen((current) => !current)}
+              className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white p-2.5 text-slate-700 transition-colors hover:border-slate-300 hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2"
+              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isMenuOpen}
+            >
+              {isMenuOpen ? <X size={18} aria-hidden="true" /> : <Menu size={18} aria-hidden="true" />}
+            </button>
+          </div>
         </nav>
 
         {isMenuOpen && (
@@ -156,7 +191,16 @@ function App() {
       <AboutSection />
       <SkillsSection />
       <ExperienceSection />
+      <ProjectsSection />
       <EducationAchievementsCertificationsSection />
+      <ContactSection />
+
+      <footer className="site-footer border-t border-slate-200 bg-white py-8">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+          <p><span className="font-semibold text-slate-700">{profile.name}</span> · Full-Stack Developer</p>
+          <p>© {new Date().getFullYear()} {profile.name}. Built with React.</p>
+        </div>
+      </footer>
 
       <button
         type="button"

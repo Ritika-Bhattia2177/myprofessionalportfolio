@@ -1,4 +1,4 @@
-import { ArrowUpRight, ExternalLink, GitBranch, Globe, X } from 'lucide-react'
+import { ArrowUpRight, GitBranch, Globe, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { projects } from '../data/projects'
 

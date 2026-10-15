@@ -10,7 +10,7 @@ const initialForm = {
 }
 
 function ContactSection() {
-  const { name, email, phone, location, resumeUrl, githubUrl, linkedinUrl } = contactProfile
+  const { email, phone, location, resumeUrl, githubUrl, linkedinUrl } = contactProfile
   const [form, setForm] = useState(initialForm)
   const [errors, setErrors] = useState({})
   const [statusMessage, setStatusMessage] = useState('')

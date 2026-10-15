@@ -20,6 +20,112 @@
   text-transform: uppercase;
 }
 
+html,
+body,
+.site-shell {
+  background: var(--page-bg);
+  color: var(--text-primary);
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.site-header {
+  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.site-shell .bg-white,
+.site-shell .bg-slate-50,
+.site-shell .bg-slate-100\/70,
+.site-shell .bg-\[\#f8fafc\] {
+  background-color: var(--surface);
+}
+
+.site-shell .text-slate-900 {
+  color: var(--text-primary);
+}
+
+.site-shell .text-slate-700,
+.site-shell .text-slate-600 {
+  color: var(--text-secondary);
+}
+
+.site-shell .text-slate-500 {
+  color: color-mix(in srgb, var(--text-secondary) 72%, transparent);
+}
+
+.site-shell .border-slate-200,
+.site-shell .border-slate-200\/90 {
+  border-color: var(--border);
+}
+
+.site-shell input,
+.site-shell textarea {
+  border-color: var(--border);
+  background-color: var(--surface);
+  color: var(--text-primary);
+}
+
+.site-shell .bg-slate-50,
+.site-shell .bg-slate-100 {
+  background-color: var(--surface-muted);
+}
+
+.site-shell .site-footer {
+  background-color: var(--surface);
+}
+
+.site-shell .site-footer .text-slate-700 {
+  color: var(--text-primary);
+}
+
+:root[data-theme='dark'] .experience-card {
+  background: rgba(17, 28, 45, 0.94);
+  border-color: #256d91;
+}
+
+:root[data-theme='dark'] .experience-card__scope {
+  border-color: var(--border);
+  background: var(--surface-muted);
+}
+
+:root[data-theme='dark'] .experience-card__scope .bg-white {
+  background-color: #1b2a40;
+}
+
+:root[data-theme='dark'] .experience-section {
+  background-color: #0d1b2d;
+  background-image:
+    linear-gradient(rgba(56, 189, 248, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.08) 1px, transparent 1px);
+}
+
+:root[data-theme='dark'] .site-header {
+  background-color: rgba(17, 28, 45, 0.92);
+  backdrop-filter: blur(12px);
+}
+
+:root[data-theme='dark'] .theme-toggle,
+:root[data-theme='dark'] .site-header .bg-white {
+  background-color: var(--surface);
+}
+
+:root[data-theme='dark'] main,
+:root[data-theme='dark'] section {
+  border-color: var(--border);
+}
+
+:root[data-theme='dark'] .bg-\[\#dfeaf4\] {
+  background-color: #14253b;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  body,
+  .site-shell {
+    scroll-behavior: auto;
+    transition: none;
+  }
+}
+
 .experience-section {
   background-color: #eef8ff;
   background-image:
