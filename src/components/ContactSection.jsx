@@ -142,10 +142,10 @@ function ContactSection() {
             )}
           </div>
 
-          <div className="mt-10 border-t border-slate-200 pt-6">
-            <div className="grid gap-4 md:grid-cols-3">
+          <div className="contact-details mt-10 rounded-2xl border border-slate-200 bg-slate-50/70 p-5 sm:p-6">
+            <div className="grid gap-5 md:grid-cols-3 md:gap-0">
               {contactItems.map(({ label, value, href, icon: Icon }) => (
-                <div key={label} className="min-w-0">
+                <div key={label} className="min-w-0 md:px-5 md:first:pl-0 md:last:pr-0 md:not-first:border-l md:not-first:border-slate-200">
                   <p className="text-[0.62rem] font-semibold tracking-[0.18em] text-slate-500 uppercase">{label}</p>
                   <div className="mt-2 flex items-start gap-2.5">
                     <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-sky-50 text-sky-700">
@@ -190,7 +190,19 @@ function ContactSection() {
             </div>
           </div>
 
-          <div className="mt-10 max-w-3xl border-t border-slate-200 pt-6">
+          <div className="contact-lower mt-10 grid items-start gap-8 border-t border-slate-200 pt-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
+            <aside className="contact-aside rounded-2xl border border-slate-200 bg-slate-50/70 p-5 sm:p-6">
+              <p className="text-xs font-semibold tracking-[0.2em] text-sky-700 uppercase">Get in touch</p>
+              <h3 className="mt-2 text-xl font-semibold tracking-[-0.04em] text-slate-900">Have a question or an idea?</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                Send a note and I’ll get back to you. You can also reach me directly using the contact details above.
+              </p>
+              <a href={`mailto:${email}`} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-sky-700 hover:text-sky-800">
+                {email}<ArrowRight size={14} aria-hidden="true" />
+              </a>
+            </aside>
+
+            <div className="contact-form-card rounded-2xl border border-slate-200 bg-white p-5 sm:p-7">
             <div className="mb-6">
               <p className="text-xs font-semibold tracking-[0.2em] text-slate-500 uppercase">Send a Message</p>
               <h3 className="mt-2 text-2xl font-semibold tracking-[-0.04em] text-slate-900">Let’s discuss your next opportunity.</h3>
@@ -292,6 +304,7 @@ function ContactSection() {
                 </button>
               </div>
             </form>
+            </div>
           </div>
         </div>
       </div>

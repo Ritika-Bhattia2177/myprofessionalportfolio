@@ -20,6 +20,60 @@
   text-transform: uppercase;
 }
 
+.education-timeline__track,
+.education-timeline__progress {
+  position: absolute;
+  top: var(--timeline-top, 3.6rem);
+  bottom: var(--timeline-bottom, 1.75rem);
+  left: var(--timeline-x, 1.8125rem);
+  width: 2px;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.education-timeline__track {
+  background: var(--border);
+}
+
+.education-timeline__progress {
+  bottom: auto;
+  height: var(--timeline-progress, 0px);
+  z-index: 1;
+  background: linear-gradient(180deg, #38bdf8, #0284c7);
+  box-shadow: 0 0 12px rgba(14, 165, 233, 0.32);
+  transition: height 120ms linear;
+}
+
+.education-timeline__item {
+  z-index: 2;
+  transition: transform 240ms ease;
+}
+
+.education-timeline__dot {
+  transition: background-color 240ms ease, box-shadow 240ms ease, transform 240ms ease;
+}
+
+.education-timeline__item.is-active .education-timeline__dot {
+  transform: scale(1.15);
+  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.13);
+}
+
+:root[data-theme='dark'] .education-timeline,
+:root[data-theme='dark'] #certifications {
+  background-color: var(--surface);
+}
+
+:root[data-theme='dark'] .contact-aside,
+:root[data-theme='dark'] .contact-form-card {
+  background-color: var(--surface);
+  border-color: var(--border);
+}
+
+:root[data-theme='dark'] .contact-details {
+  background-color: var(--surface);
+  border-color: var(--border);
+}
+
 html,
 body,
 .site-shell {
@@ -214,7 +268,11 @@ body,
 
 @media (prefers-reduced-motion: reduce) {
   .hero-card,
-  .floating-badge {
+  .floating-badge,
+  .education-timeline__progress,
+  .education-timeline__item,
+  .education-timeline__dot {
     animation: none;
+    transition: none;
   }
 }
