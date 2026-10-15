@@ -8,6 +8,22 @@
   }
 }
 
+.pointer-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  background: #3157e8;
+  box-shadow: 0 1px 8px rgba(49, 87, 232, 0.35);
+  pointer-events: none;
+  will-change: transform;
+}
+
 .hero-card {
   animation: gentleFloat 8s ease-in-out infinite;
 }

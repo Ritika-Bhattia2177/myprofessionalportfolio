@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ChevronUp, Download, Menu, Moon, Sun, X } from 'lucide-react'
 import Hero from './components/Hero'
 import AboutSection from './components/AboutSection'
@@ -26,6 +26,7 @@ const RESUME_URL = contactProfile.resumeUrl
 function App() {
   const [activeSection, setActiveSection] = useState('home')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const pointerDotRef = useRef(null)
   const [theme, setTheme] = useState(() => {
     const savedTheme = window.localStorage.getItem('portfolio-theme')
     if (savedTheme === 'light' || savedTheme === 'dark') {
@@ -39,6 +40,39 @@ function App() {
     document.documentElement.dataset.theme = theme
     window.localStorage.setItem('portfolio-theme', theme)
   }, [theme])
+
+  useEffect(() => {
+    const pointerQuery = window.matchMedia('(pointer: fine) and (prefers-reduced-motion: no-preference)')
+    if (!pointerQuery.matches) {
+      return undefined
+    }
+
+    const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 }
+    const dot = { ...pointer }
+    let frameId
+
+    const handlePointerMove = (event) => {
+      pointer.x = event.clientX
+      pointer.y = event.clientY
+    }
+
+    const animateDot = () => {
+      dot.x += (pointer.x - dot.x) * 0.18
+      dot.y += (pointer.y - dot.y) * 0.18
+      if (pointerDotRef.current) {
+        pointerDotRef.current.style.transform = `translate3d(${dot.x}px, ${dot.y}px, 0)`
+      }
+      frameId = window.requestAnimationFrame(animateDot)
+    }
+
+    window.addEventListener('pointermove', handlePointerMove, { passive: true })
+    frameId = window.requestAnimationFrame(animateDot)
+
+    return () => {
+      window.removeEventListener('pointermove', handlePointerMove)
+      window.cancelAnimationFrame(frameId)
+    }
+  }, [])
 
   useEffect(() => {
     const sections = navItems
@@ -120,6 +154,7 @@ function App() {
 
   return (
     <>
+      <span ref={pointerDotRef} className="pointer-dot" aria-hidden="true" />
       <div className="site-shell">
       <header className="site-header sticky top-0 z-50 border-b border-slate-200/90 bg-white">
         <nav aria-label="Main navigation" className="mx-auto flex h-[68px] w-[calc(100%-40px)] max-w-[1136px] items-center justify-between sm:w-[calc(100%-64px)] lg:w-[calc(100%-80px)]">
