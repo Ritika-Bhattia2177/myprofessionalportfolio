@@ -53,21 +53,21 @@ export const certifications = [
   {
     id: 'react',
     name: 'React.js Bootcamp',
-    url: 'REACT_CERTIFICATE_URL',
+    url: 'https://drive.google.com/file/d/1gNpKD5J3COyupL_7-tybI27zIEVw18W7/view?usp=sharing',
   },
   {
     id: 'github',
     name: 'Git & GitHub Certification',
-    url: 'GITHUB_CERTIFICATE_URL',
+    url: 'https://drive.google.com/file/d/1H8kbg3AxE35ingftRrxijyQ8G0gzmegj/view',
   },
   {
     id: 'version-control',
     name: 'Version Control with Git & GitHub',
-    url: 'VERSION_CONTROL_CERTIFICATE_URL',
+    url: 'https://drive.google.com/file/d/1eDBylntcMW5DySfz-DeHAarR915iR9-g/view',
   },
   {
     id: 'ai',
     name: 'AI Fundamentals',
-    url: 'AI_FUNDAMENTALS_CERTIFICATE_URL',
+    url: 'https://drive.google.com/file/d/1rRsOgdK-A3q_u9nTI79HmNDCep5qByWo/view?usp=sharing',
   },
 ]

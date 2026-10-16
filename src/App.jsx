@@ -158,7 +158,7 @@ function App() {
       <div className="site-shell">
       <header className="site-header sticky top-0 z-50 border-b border-slate-200/90 bg-white">
         <nav aria-label="Main navigation" className="mx-auto flex h-[68px] w-[calc(100%-40px)] max-w-[1136px] items-center justify-between sm:w-[calc(100%-64px)] lg:w-[calc(100%-80px)]">
-          <a href="#home" className="shrink-0 text-[1.45rem] font-extrabold tracking-[-0.055em] text-[#3157e8] focus:outline-none focus:ring-2 focus:ring-sky-300 focus:ring-offset-2 focus:ring-offset-white">
+          <a href="#home" className="site-brand shrink-0 text-[1.45rem] font-extrabold tracking-[-0.055em] focus:outline-none focus:ring-2 focus:ring-sky-300 focus:ring-offset-2 focus:ring-offset-white">
             {profile.name}
           </a>
 

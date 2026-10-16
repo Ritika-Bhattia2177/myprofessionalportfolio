@@ -19,17 +19,15 @@ export const profile = {
     period: 'Jan–Apr 2026',
     project: 'Rehabilitation Management Platform',
   },
-  resumeUrl: '/Ritika-Resume.pdf',
+  resumeUrl: 'https://drive.google.com/file/d/1FFn01v0mJT57Jq2ZCJddmd5Vbqbp-Zt-/view?usp=drive_link',
   socialLinks: [
     {
       label: 'GitHub',
-      href: 'https://github.com/yourusername',
-      placeholder: true,
+      href: 'https://github.com/Ritika-Bhattia2177',
     },
     {
       label: 'LinkedIn',
-      href: 'https://www.linkedin.com/in/yourusername',
-      placeholder: true,
+      href: 'https://www.linkedin.com/in/ritika-bhattia-84a697338/',
     },
   ],
   technologies: [

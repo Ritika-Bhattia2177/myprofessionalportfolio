@@ -1,60 +1,76 @@
-import { ArrowRight, Download } from 'lucide-react'
-import profileImage from '../assets/hero.png'
+import { useRef } from 'react'
+import { ArrowRight, Download, Layers3, Database, Braces } from 'lucide-react'
+import profileImage from '../assets/ritika.jpeg'
 import { profile } from '../data/profile'
 
 function Hero() {
-  const { name, resumeUrl } = profile
+  const visualRef = useRef(null)
+  const displayName = profile.name.charAt(0) + profile.name.slice(1).toLowerCase()
+  const technologies = profile.technologies.slice(0, 4)
+
+  const handlePointerMove = (event) => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || event.pointerType !== 'mouse') return
+    const bounds = event.currentTarget.getBoundingClientRect()
+    const x = (event.clientX - bounds.left) / bounds.width - 0.5
+    const y = (event.clientY - bounds.top) / bounds.height - 0.5
+    visualRef.current?.style.setProperty('--tilt-x', `${y * -3}deg`)
+    visualRef.current?.style.setProperty('--tilt-y', `${x * 3}deg`)
+    visualRef.current?.style.setProperty('--shift-x', `${x * 5}px`)
+    visualRef.current?.style.setProperty('--shift-y', `${y * 5}px`)
+  }
+
+  const resetPointer = () => {
+    visualRef.current?.style.setProperty('--tilt-x', '0deg')
+    visualRef.current?.style.setProperty('--tilt-y', '0deg')
+    visualRef.current?.style.setProperty('--shift-x', '0px')
+    visualRef.current?.style.setProperty('--shift-y', '0px')
+  }
 
   return (
-    <main id="home" className="bg-[#dfeaf4] text-slate-900 antialiased scroll-mt-28">
-      <section className="mx-auto w-[calc(100%-80px)] max-w-[1500px] px-4 pb-10 pt-8 sm:px-6 lg:px-12 lg:pb-12 lg:pt-12">
-        <div className="grid min-h-[calc(100vh-140px)] items-center gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(500px,0.85fr)] lg:gap-8">
-          <div className="mx-auto max-w-[680px] text-left lg:mx-0 lg:pl-2">
-            <h1 className="text-[clamp(3.2rem,4vw,5.6rem)] font-black leading-[0.96] tracking-[-0.06em] text-slate-900">
-              Hi, I&apos;m <span className="text-[#2d5ae7]">{name}</span>
-              <span className="mt-2 block">a Full Stack</span>
-              <span className="mt-1 block">Developer.</span>
-            </h1>
+    <main id="home" className="hero-shell scroll-mt-20">
+      <section className="hero-section" aria-labelledby="hero-heading">
+        <div className="hero-grid">
+          <div className="hero-copy">
+            <p className="hero-eyebrow"><span aria-hidden="true" />{profile.eyebrow}</p>
+            <h1 id="hero-heading">Hi, I&apos;m <span>{displayName}.</span><strong>{profile.role}</strong></h1>
+            <p className="hero-description">I build user-focused web applications with modern frontend and backend technologies, from thoughtful interfaces to reliable, data-driven features.</p>
 
-            <p className="mt-7 max-w-[680px] text-[1.08rem] leading-[1.75] text-slate-700 sm:text-[1.2rem]">
-              I specialize in building scalable, user-focused web applications using the MERN stack.
-            </p>
+            <div className="hero-built-with" aria-label={`Building with ${technologies.join(', ')}`}>
+              <span className="hero-built-label">BUILDING WITH</span>
+              <div className="hero-tech-list">
+                {technologies.map((technology) => <span key={technology}>{technology}</span>)}
+              </div>
+            </div>
 
-            <p className="mt-4 max-w-[680px] text-[1rem] leading-[1.8] text-slate-700 sm:text-[1.08rem]">
-              Turning clean code into impactful products that empower users and drive results.
-            </p>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <a
-                href="#projects"
-                className="inline-flex h-[52px] items-center justify-center gap-2 rounded-xl bg-[#3d5fe8] px-6 text-base font-semibold text-white shadow-[0_10px_24px_rgba(61,95,232,0.2)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#2f52d4] focus:outline-none focus:ring-2 focus:ring-sky-200 focus:ring-offset-2"
-              >
-                View Projects
-                <ArrowRight size={18} aria-hidden="true" />
-              </a>
-
-              <a
-                href={resumeUrl}
-                download
-                className="inline-flex h-[52px] items-center justify-center gap-2 rounded-xl border-2 border-[#3d5fe8] bg-white/25 px-6 text-base font-semibold text-[#1f2d67] transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/70 focus:outline-none focus:ring-2 focus:ring-sky-200 focus:ring-offset-2"
-              >
-                <Download size={18} aria-hidden="true" />
-                Download Resume
-              </a>
+            <div className="hero-actions">
+              <a href="#projects" className="hero-primary-action">View Projects <ArrowRight size={17} aria-hidden="true" /></a>
+              <a href={profile.resumeUrl} target="_blank" rel="noreferrer" className="hero-secondary-action"><Download size={16} aria-hidden="true" />Download Resume</a>
             </div>
           </div>
 
-          <div className="relative mx-auto flex w-full max-w-[560px] items-center justify-center lg:mx-0 lg:justify-center">
-            <div className="relative flex h-[320px] w-[320px] items-center justify-center overflow-hidden rounded-full border-[8px] border-[#d6e6ff] bg-gradient-to-br from-[#dfeaf4] via-[#cfe0ff] to-[#b8d3ff] shadow-[0_24px_45px_rgba(61,95,232,0.12)] sm:h-[380px] sm:w-[380px] lg:h-[500px] lg:w-[500px]">
-              <img
-                src={profileImage}
-                alt="Ritika profile"
-                className="h-full w-full rounded-full object-cover"
-              />
+          <div className="hero-visual-wrap" onPointerMove={handlePointerMove} onPointerLeave={resetPointer}>
+            <div className="hero-visual" ref={visualRef}>
+              <div className="hero-visual-orbit" />
+              <div className="hero-portrait-card">
+                <img src={profileImage} alt="Ritika, Full-Stack Developer" fetchPriority="high" />
+                <div className="hero-portrait-caption"><span className="hero-status-dot" />Building for the web</div>
+              </div>
+              <div className="hero-code-card" aria-hidden="true">
+                <div className="hero-code-heading"><span /><span /><span /><b>app / stack</b></div>
+                <div className="hero-code-body">
+                  <span className="code-line-number">01</span><span className="code-token">const</span><span> product = {'{'}</span>
+                  <span className="code-line-number">02</span><span className="code-indent code-key">frontend:</span><span className="code-value"> React</span>
+                  <span className="code-line-number">03</span><span className="code-indent code-key">backend:</span><span className="code-value"> Node.js</span>
+                  <span className="code-line-number">04</span><span className="code-indent code-key">data:</span><span className="code-value"> MongoDB</span>
+                  <span className="code-line-number">05</span><span>{'}'}</span>
+                </div>
+              </div>
+              <div className="hero-layer-label layer-frontend"><Braces size={14} aria-hidden="true" /><span>Frontend</span></div>
+              <div className="hero-layer-label layer-backend"><Layers3 size={14} aria-hidden="true" /><span>Backend</span></div>
+              <div className="hero-layer-label layer-database"><Database size={14} aria-hidden="true" /><span>Database</span></div>
             </div>
           </div>
         </div>
-
       </section>
     </main>
   )

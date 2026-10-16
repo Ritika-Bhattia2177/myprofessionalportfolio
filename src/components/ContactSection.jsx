@@ -1,102 +1,10 @@
-import { useState } from 'react'
-import { ArrowRight, BriefcaseBusiness, GitBranch, Mail, MapPin, Phone } from 'lucide-react'
+import { useForm, ValidationError } from '@formspree/react'
+import { ArrowRight, BriefcaseBusiness, GitBranch } from 'lucide-react'
 import { contactProfile } from '../data/contact'
 
-const initialForm = {
-  name: '',
-  email: '',
-  subject: '',
-  message: '',
-}
-
 function ContactSection() {
-  const { email, phone, location, resumeUrl, githubUrl, linkedinUrl } = contactProfile
-  const [form, setForm] = useState(initialForm)
-  const [errors, setErrors] = useState({})
-  const [statusMessage, setStatusMessage] = useState('')
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
-  const validate = () => {
-    const nextErrors = {}
-
-    if (!form.name.trim()) {
-      nextErrors.name = 'Full name is required.'
-    }
-
-    if (!form.email.trim()) {
-      nextErrors.email = 'Email is required.'
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      nextErrors.email = 'Please enter a valid email address.'
-    }
-
-    if (!form.message.trim()) {
-      nextErrors.message = 'Message is required.'
-    } else if (form.message.trim().length < 10) {
-      nextErrors.message = 'Message should be at least 10 characters long.'
-    }
-
-    return nextErrors
-  }
-
-  const handleChange = (event) => {
-    const { name: fieldName, value } = event.target
-    setForm((current) => ({ ...current, [fieldName]: value }))
-
-    if (errors[fieldName]) {
-      setErrors((current) => ({ ...current, [fieldName]: '' }))
-    }
-
-    if (statusMessage) {
-      setStatusMessage('')
-    }
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-
-    const nextErrors = validate()
-    setErrors(nextErrors)
-
-    if (Object.keys(nextErrors).length > 0) {
-      return
-    }
-
-    setIsSubmitting(true)
-
-    const subject = form.subject?.trim() || 'Portfolio enquiry'
-    const body = encodeURIComponent(
-      `Hi Ritika,\n\n${form.message.trim()}\n\nFrom: ${form.name.trim()}\nEmail: ${form.email.trim()}`
-    )
-
-    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${body}`
-
-    setTimeout(() => {
-      setIsSubmitting(false)
-      setStatusMessage('Your email client will open to complete the message.')
-      setForm(initialForm)
-    }, 300)
-  }
-
-  const contactItems = [
-    {
-      label: 'Email',
-      value: email,
-      href: `mailto:${email}`,
-      icon: Mail,
-    },
-    {
-      label: 'Phone',
-      value: phone,
-      href: `tel:+918091451830`,
-      icon: Phone,
-    },
-    {
-      label: 'Location',
-      value: location,
-      href: null,
-      icon: MapPin,
-    },
-  ]
+  const { email, resumeUrl, githubUrl, linkedinUrl } = contactProfile
+  const [state, handleSubmit] = useForm('xrperplo')
 
   return (
     <section id="contact" className="scroll-mt-28 bg-white py-12 sm:py-16 lg:py-20">
@@ -188,101 +96,87 @@ function ContactSection() {
               <h3 className="mt-2 text-2xl font-semibold tracking-[-0.04em] text-slate-900">Let’s discuss your next opportunity.</h3>
             </div>
 
-            <form onSubmit={handleSubmit} className="grid gap-4" noValidate>
-              <div className="grid gap-4 md:grid-cols-2">
+            {state.succeeded && (
+              <p className="mb-4 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-3 text-sm text-emerald-700">
+                Thanks for reaching out. Your message has been sent successfully.
+              </p>
+            )}
+
+            <form onSubmit={handleSubmit} className="grid gap-4">
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div>
+                    <label htmlFor="name" className="mb-2 block text-sm font-medium text-slate-700">
+                      Full Name
+                    </label>
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      required
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 transition-colors focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-100"
+                    />
+                    <ValidationError prefix="Name" field="name" errors={state.errors} />
+                  </div>
+
+                  <div>
+                    <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-700">
+                      Email
+                    </label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      required
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 transition-colors focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-100"
+                    />
+                    <ValidationError prefix="Email" field="email" errors={state.errors} />
+                  </div>
+                </div>
+
                 <div>
-                  <label htmlFor="name" className="mb-2 block text-sm font-medium text-slate-700">
-                    Full Name
+                  <label htmlFor="subject" className="mb-2 block text-sm font-medium text-slate-700">
+                    Subject
                   </label>
                   <input
-                    id="name"
-                    name="name"
+                    id="subject"
+                    name="subject"
                     type="text"
-                    value={form.name}
-                    onChange={handleChange}
                     className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 transition-colors focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-100"
-                    aria-invalid={Boolean(errors.name)}
-                    aria-describedby={errors.name ? 'name-error' : undefined}
                   />
-                  {errors.name && (
-                    <p id="name-error" className="mt-1 text-sm text-red-600">
-                      {errors.name}
-                    </p>
-                  )}
+                  <ValidationError prefix="Subject" field="subject" errors={state.errors} />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-700">
-                    Email
+                  <label htmlFor="message" className="mb-2 block text-sm font-medium text-slate-700">
+                    Message
                   </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={form.email}
-                    onChange={handleChange}
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="4"
+                    required
+                    minLength="10"
                     className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 transition-colors focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-100"
-                    aria-invalid={Boolean(errors.email)}
-                    aria-describedby={errors.email ? 'email-error' : undefined}
                   />
-                  {errors.email && (
-                    <p id="email-error" className="mt-1 text-sm text-red-600">
-                      {errors.email}
-                    </p>
-                  )}
+                  <ValidationError prefix="Message" field="message" errors={state.errors} />
                 </div>
-              </div>
 
-              <div>
-                <label htmlFor="subject" className="mb-2 block text-sm font-medium text-slate-700">
-                  Subject
-                </label>
-                <input
-                  id="subject"
-                  name="subject"
-                  type="text"
-                  value={form.subject}
-                  onChange={handleChange}
-                  className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 transition-colors focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-100"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="message" className="mb-2 block text-sm font-medium text-slate-700">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows="4"
-                  value={form.message}
-                  onChange={handleChange}
-                  className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 transition-colors focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-100"
-                  aria-invalid={Boolean(errors.message)}
-                  aria-describedby={errors.message ? 'message-error' : undefined}
-                />
-                {errors.message && (
-                  <p id="message-error" className="mt-1 text-sm text-red-600">
-                    {errors.message}
-                  </p>
+                {state.errors && (
+                  <ValidationError
+                    errors={state.errors}
+                    className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700"
+                  />
                 )}
-              </div>
 
-              {statusMessage && (
-                <p className="rounded-xl border border-sky-200 bg-sky-50 px-3 py-2 text-sm text-sky-700">
-                  {statusMessage}
-                </p>
-              )}
-
-              <div className="pt-2">
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500 disabled:cursor-not-allowed disabled:opacity-70"
-                >
-                  {isSubmitting ? 'Preparing...' : 'Send Message'}
-                </button>
-              </div>
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    disabled={state.submitting}
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500 disabled:cursor-not-allowed disabled:opacity-70"
+                  >
+                    {state.submitting ? 'Sending...' : 'Send Message'}
+                  </button>
+                </div>
             </form>
             </div>
           </div>

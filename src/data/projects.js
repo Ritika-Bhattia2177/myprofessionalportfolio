@@ -1,13 +1,17 @@
-export const ORGANICMART_LIVE_URL = ''
-export const ORGANICMART_GITHUB_URL = ''
-export const REHABILITATION_LIVE_URL = ''
-export const REHABILITATION_GITHUB_URL = ''
-export const TRIPMIND_LIVE_URL = ''
-export const TRIPMIND_GITHUB_URL = ''
+import organicMartScreenshot from '../assets/organicmart.png'
+import rehabConnectScreenshot from '../assets/rehabconnect.png'
+import tripMindScreenshot from '../assets/tripmind.png'
 
-export const ORGANICMART_IMAGE = ''
-export const REHABILITATION_IMAGE = ''
-export const TRIPMIND_IMAGE = ''
+export const ORGANICMART_LIVE_URL = 'https://organic-ecommence-frontend.vercel.app/'
+export const ORGANICMART_GITHUB_URL = 'https://github.com/Ritika-Bhattia2177/organic-Ecommence-frontend-'
+export const REHABILITATION_LIVE_URL = 'https://www.nashamuktikendra.net/'
+export const REHABILITATION_GITHUB_URL = 'https://github.com/Sonukathat/suss-rehab'
+export const TRIPMIND_LIVE_URL = 'https://new-trip-mind-frontend.vercel.app/'
+export const TRIPMIND_GITHUB_URL = 'https://github.com/Ritika-Bhattia2177/New-TripMind-Frontend'
+
+export const ORGANICMART_IMAGE = organicMartScreenshot
+export const REHABILITATION_IMAGE = rehabConnectScreenshot
+export const TRIPMIND_IMAGE = tripMindScreenshot
 
 export const projects = [
   {
