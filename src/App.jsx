@@ -13,12 +13,12 @@ import './App.css'
 
 const navItems = [
   { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#skills' },
   { label: 'Experience', href: '#experience' },
+  { label: 'Skills', href: '#skills' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Education', href: '#education' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'About', href: '#about' },
+  { label: 'Academic Foundation', href: '#education' },
+  { label: 'Let’s Connect', href: '#contact' },
 ]
 
 const RESUME_URL = contactProfile.resumeUrl
@@ -223,10 +223,10 @@ function App() {
       </header>
 
       <Hero />
-      <AboutSection />
-      <SkillsSection />
       <ExperienceSection />
+      <SkillsSection />
       <ProjectsSection />
+      <AboutSection />
       <EducationAchievementsCertificationsSection />
       <ContactSection />
 
